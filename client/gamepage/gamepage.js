@@ -1,26 +1,63 @@
 /*Run this code when the template is rendered */
 Template.gamepage.onRendered(function(){
 var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game-area');
-  
- //Important global variables
+
+//Important global variables
 var mainChar = null;
 
-var GameState = {
-  	preload: function() {
-  		this.load.image('background',"assets/gamebackground.jpg");
-  		this.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
-  		this.load.image('ship', "assets/testShip.png");
+//Add Game States
+game.state.add('boot', BootState);
+game.state.add('load', LoadState);
+game.state.add('menu', MenuState);
+game.state.add('play', PlayState);
+game.state.add('win', WinState);
 
-  	},
+//Start the game
+game.state.start('boot');
+
+var BootState = {
+  create: function ()
+  {
+    //Start Physics System
+    game.physics.startSystem(Phaser.Physics.Arcade);
+    //Start load state
+    game.state.start('load');
+  }
+}
+//Preload Game State
+var LoadState = {
+  //Load all the necessary Images and files
+  preload: function() {
+    game.load.image('background',"assets/gamebackground.jpg");
+    game.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
+    game.load.image('ship', "assets/testShip.png");
+
+  },
+
+  create: function() {
+    //Start Menu State
+    game.state.start('menu');
+  }
+};
+
+//Menu State
+var MenuState = {
+
+  create: function() {
+    //Start main game state
+    game.state.start('play');
+  }
+};
+
+//Main Game State
+var PlayState = {
 
   	create: function() {
-  		//Start physics system
-  		game.physics.startSystem(Phaser.Physics.Arcade);
 
   		//Add background
-  		this.add.sprite(0, 0,'background');
+  		game.add.sprite(0, 0,'background');
 
-  		mainChar = this.add.sprite(100, 100, 'ship');//this.add.sprite(288,48,'mainCharacter');
+  		mainChar = game.add.sprite(100, 100, 'ship');//this.add.sprite(288,48,'mainCharacter');
   		mainChar.anchor.setTo(0.5, 0.5); //Places anchors in the middle of the sprite
   		mainChar.angle += 90; //Adjust sprite angle
   		// mainChar.animations.add('walk');
@@ -42,8 +79,9 @@ var GameState = {
   	update: function() {
   		//Game Logic such as player input
 
+      //playerMovement
   		mainChar.body.velocity.x = 0;
-  		//playerMovement
+  		
   		if(cursors.up.isDown)
   		{
   			mainChar.body.velocity.y = -150;
@@ -63,6 +101,9 @@ var GameState = {
   	}
  };
 
- game.state.add('GameState', GameState);
- game.state.start('GameState');
+ //Win State
+ var WinState = {
+
+ };
+
 });
