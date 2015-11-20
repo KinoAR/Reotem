@@ -21,7 +21,13 @@
     {
       template = Template.authorpage;
       Blaze.render(template,Template.instance().find('#content'))
-      console.log("Loaded author page");
+      console.log("Loaded author template");
+    }
+    else if(clickedElement.matches('#signup-link'))
+    {
+      template = Template.signuppage;
+      Blaze.render(template,Template.instance().find('#content'))
+      console.log("Loaded sign up template");
     }
     //Currently breaks if there is no content-information class selectors on the page.
     else

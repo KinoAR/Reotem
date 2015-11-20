@@ -5,15 +5,8 @@ var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game-area');
 //Important global variables
 var mainChar = null;
 
-//Add Game States
-game.state.add('boot', BootState);
-game.state.add('load', LoadState);
-game.state.add('menu', MenuState);
-game.state.add('play', PlayState);
-game.state.add('win', WinState);
 
-//Start the game
-game.state.start('boot');
+
 
 var BootState = {
   create: function ()
@@ -66,7 +59,6 @@ var PlayState = {
   		//Setting player physics
   		game.physics.arcade.enable(mainChar);
   		mainChar.body.maxVelocity = 200; //Player maximum velocity
-  		mainChar.body.gravity.y = 50;
 
   		//Set World Gravity
   		game.physics.arcade.gravity.y = 0;
@@ -80,7 +72,10 @@ var PlayState = {
   		//Game Logic such as player input
 
       //playerMovement
+
+      //Reset Player Velocity
   		mainChar.body.velocity.x = 0;
+      mainChar.body.velocity.y = 0;
   		
   		if(cursors.up.isDown)
   		{
@@ -105,5 +100,17 @@ var PlayState = {
  var WinState = {
 
  };
+/* Start Game Progressing
+  --------------------------------------------------------------------------
+*/
 
+//Add Game States
+game.state.add('boot', BootState);
+game.state.add('load', LoadState);
+game.state.add('menu', MenuState);
+game.state.add('play', PlayState);
+game.state.add('win', WinState);
+
+//Start the game
+game.state.start('boot');
 });
