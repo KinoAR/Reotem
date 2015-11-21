@@ -6,7 +6,6 @@ a {
 }
 
 div.homepage-main {
-	margin-top: 20px;
 	padding: 0px;
 	background-color: rgba(30,30,30, .65);
 	min-height: 50vh;
@@ -50,7 +49,9 @@ div.homepage-nav > ul > li > a:focus {
 div.homepage-content {
 	width:100%;
 	color:white;
-	height:600px;
+	background-color: rgba(30,30,30,1);
+	min-height: 600px;
+	height:auto;
 	max-height: 100%;
 	padding: 20px 10px;
 }

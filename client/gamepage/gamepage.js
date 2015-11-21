@@ -1,12 +1,13 @@
 /*Run this code when the template is rendered */
 Template.gamepage.onRendered(function(){
-var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game-area');
+var game = new Phaser.Game(500, 500, Phaser.AUTO, 'game-area');
+
+var map;
+var layer;
+//Tilesets 800 x 544 
 
 //Important global variables
 var mainChar = null;
-
-
-
 
 var BootState = {
   create: function ()
@@ -22,6 +23,9 @@ var LoadState = {
   //Load all the necessary Images and files
   preload: function() {
     game.load.image('background',"assets/gamebackground.jpg");
+    //use CSV format Loading tilemap from json file
+    game.load.tilemap('demo',"assets/tilemaps/demolevel3.json", null, Phaser.Tilemap.TILED_JSON); 
+    game.load.image('demotiles', "assets/tilemaps/dungeon_tiles.png");
     game.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
     game.load.image('ship', "assets/testShip.png");
 
@@ -37,6 +41,9 @@ var LoadState = {
 var MenuState = {
 
   create: function() {
+    /*Game title and menu text */
+    let gameTitle = game.add.text(100, 100, "Reotem", {font:'50px Arial', fill:'#ffffff'});
+
     //Start main game state
     game.state.start('play');
   }
@@ -47,8 +54,17 @@ var PlayState = {
 
   	create: function() {
 
+      //Add Tilemap
+      map = game.add.tilemap('demo');
+      map.addTilesetImage('dungeon_tiles','demotiles');
+      layer = map.createLayer('level1');
+
+      layer.debug = true;
+
+      //Set Up Layer collisions
+      map.setCollisionBetween(49, 50);
   		//Add background
-  		game.add.sprite(0, 0,'background');
+  		//game.add.sprite(0, 0,'background');
 
   		mainChar = game.add.sprite(100, 100, 'ship');//this.add.sprite(288,48,'mainCharacter');
   		mainChar.anchor.setTo(0.5, 0.5); //Places anchors in the middle of the sprite
