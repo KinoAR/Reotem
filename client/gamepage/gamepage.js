@@ -23,8 +23,8 @@ var LoadState = {
   //Load all the necessary Images and files
   preload: function() {
     game.load.image('background',"assets/gamebackground.jpg");
-    //use CSV format Loading tilemap from json file
-    game.load.tilemap('demo',"assets/tilemaps/demolevel3.json", null, Phaser.Tilemap.TILED_JSON); 
+    //use CSV or base64 format Loading tilemap from json file
+    game.load.tilemap('demo',"assets/tilemaps/demolevel.json", null, Phaser.Tilemap.TILED_JSON); 
     game.load.image('demotiles', "assets/tilemaps/dungeon_tiles.png");
     game.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
     game.load.image('ship', "assets/testShip.png");
@@ -57,12 +57,13 @@ var PlayState = {
       //Add Tilemap
       map = game.add.tilemap('demo');
       map.addTilesetImage('dungeon_tiles','demotiles');
+      console.log(map);
       layer = map.createLayer('level1');
-
       layer.debug = true;
 
-      //Set Up Layer collisions
-      map.setCollisionBetween(49, 50);
+      //Set Up Layer collisions between specific layer indexes -- Tile ID + 1
+      map.setCollision([48, 49, 50, 51, 52, 53, 72, 76, 94, 95, 99, 118, 122, 141, 142, 143, 144, 145, 234, 256, 258, 279, 280, 281]);
+
   		//Add background
   		//game.add.sprite(0, 0,'background');
 
