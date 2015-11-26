@@ -67,11 +67,10 @@ var PlayState = {
   		//Add background
   		//game.add.sprite(0, 0,'background');
 
-  		mainChar = game.add.sprite(100, 100, 'ship');//this.add.sprite(288,48,'mainCharacter');
+  		mainChar = game.add.sprite(50, 200, 'ship');
   		mainChar.anchor.setTo(0.5, 0.5); //Places anchors in the middle of the sprite
   		mainChar.angle += 90; //Adjust sprite angle
-  		// mainChar.animations.add('walk');
-  		// mainChar.animations.play('walk', 10, true);
+      mainChar.scale.setTo(0.10,0.10);
 
   		//Setting player physics
   		game.physics.arcade.enable(mainChar);
@@ -83,11 +82,14 @@ var PlayState = {
   		cursors = game.input.keyboard.createCursorKeys();
   		game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR ]);
 
+
   	},
 
   	update: function() {
   		//Game Logic such as player input
 
+      //Set collision between player and tile layer
+      game.physics.arcade.collide(mainChar, layer);
       //playerMovement
 
       //Reset Player Velocity
