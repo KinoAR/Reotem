@@ -22,3 +22,6 @@ fortawesome:fontawesome
 twbs:bootstrap
 iron:router
 fds:pixijs
+accounts-ui
+service-configuration
+accounts-google

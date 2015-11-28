@@ -1,13 +1,11 @@
-/*Run this code when the template is rendered */
 Template.gamepage.onRendered(function(){
 var game = new Phaser.Game(500, 500, Phaser.AUTO, 'game-area');
 
+//Important global variables
 var map;
 var layer;
-//Tilesets 800 x 544 
-
-//Important global variables
 var mainChar = null;
+var mainEnemy = null;
 
 var BootState = {
   create: function ()
@@ -67,10 +65,13 @@ var PlayState = {
   		//Add background
   		//game.add.sprite(0, 0,'background');
 
+      //Setup game character
   		mainChar = game.add.sprite(50, 200, 'ship');
   		mainChar.anchor.setTo(0.5, 0.5); //Places anchors in the middle of the sprite
   		mainChar.angle += 90; //Adjust sprite angle
       mainChar.scale.setTo(0.10,0.10);
+
+      //Setup game enemy
 
   		//Setting player physics
   		game.physics.arcade.enable(mainChar);
