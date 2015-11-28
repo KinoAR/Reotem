@@ -26,6 +26,7 @@ var LoadState = {
     game.load.image('demotiles', "assets/tilemaps/dungeon_tiles.png");
     game.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
     game.load.image('ship', "assets/testShip.png");
+    game.load.image('enemy', "assets/knifeguy.png");
 
   },
 
@@ -72,6 +73,8 @@ var PlayState = {
       mainChar.scale.setTo(0.10,0.10);
 
       //Setup game enemy
+      mainEnemy = game.add.sprite(375, 425, 'enemy'); //position on canvas & sprite name
+      mainChar.anchor.setTo(0.5,0.5);
 
   		//Setting player physics
   		game.physics.arcade.enable(mainChar);
