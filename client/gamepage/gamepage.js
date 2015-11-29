@@ -1,6 +1,7 @@
 Template.gamepage.onRendered(function(){
-var game = new Phaser.Game(500, 500, Phaser.AUTO, 'game-area');
 
+var game = new Phaser.Game(500, 500, Phaser.AUTO, 'game-area');
+var easystar = EasyStar.js();
 //Important global variables
 var map;
 var layer;
@@ -74,11 +75,13 @@ var PlayState = {
 
       //Setup game enemy
       mainEnemy = game.add.sprite(375, 425, 'enemy'); //position on canvas & sprite name
-      mainChar.anchor.setTo(0.5,0.5);
+      mainEnemy.anchor.setTo(0.5,0.5);
 
-  		//Setting player physics
+  		//Setting player & enemy physics
   		game.physics.arcade.enable(mainChar);
+      game.physics.arcade.enable(mainEnemy);
   		mainChar.body.maxVelocity = 200; //Player maximum velocity
+      mainEnemy.body.maxVelocity = 300; //Enemy maximum velocity
 
   		//Set World Gravity
   		game.physics.arcade.gravity.y = 0;
@@ -94,6 +97,8 @@ var PlayState = {
 
       //Set collision between player and tile layer
       game.physics.arcade.collide(mainChar, layer);
+      game.physics.arcade.collide(mainChar, mainEnemy);
+      game.physics.arcade.collide(mainEnemy, layer);
       //playerMovement
 
       //Reset Player Velocity
