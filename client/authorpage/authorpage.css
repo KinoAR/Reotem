@@ -1,0 +1,10 @@
+.content-information {
+  text-align: center;
+}
+.authorpage-main {
+  text-align: left;
+  width:100%;
+}
+dd.authorpage-main {
+  width:50%;
+}
