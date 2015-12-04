@@ -33,9 +33,8 @@ var LoadState = {
     //use CSV or base64 format Loading tilemap from json file
     game.load.tilemap('demo',"assets/tilemaps/demolevel.json", null, Phaser.Tilemap.TILED_JSON); 
     game.load.image('demotiles', "assets/tilemaps/dungeon_tiles.png");
-    game.load.spritesheet('mainCharacter', "assets/dude.png",32, 48, 9);
-    game.load.image('ship', "assets/testShip.png");
-    game.load.image('enemy', "assets/knifeguy.png");
+    game.load.image('player', "assets/Player.png");
+    game.load.image('enemy', "assets/Knifeguy1.png");
 
   },
 
@@ -72,7 +71,7 @@ var PlayState = {
 
 
       //Set Up Layer collisions between specific layer indexes -- Tile ID + 1
-      map.setCollision([48, 49, 50, 51, 52, 53, 72, 76, 94, 95, 99, 118, 122, 141, 142, 143, 144, 145, 234, 256, 258, 279, 280, 281]);
+      map.setCollision([48, 49, 50, 51, 52, 53, 72, 76, 94, 95, 97, 99, 118, 119, 120, 122, 141, 142, 143, 144, 145, 234, 256, 257, 258, 279, 280, 281]);
 
       //Set up Level grid
       var level = [];
@@ -96,20 +95,19 @@ var PlayState = {
           level[y].push(value);
         }
       }
-
+      console.log(level);
   		//Add background
   		//game.add.sprite(0, 0,'background');
 
       //Setup game character
-  		mainChar = game.add.sprite(50, 200, 'ship');
+  		mainChar = game.add.sprite(50, 200, 'player');
   		mainChar.anchor.setTo(0.5, 0.5); //Places anchors in the middle of the sprite
-  		mainChar.angle += 90; //Adjust sprite angle
-      mainChar.scale.setTo(0.09,0.09);
+      
 
       //Setup game enemy
       mainEnemy = game.add.sprite(375, 425, 'enemy'); //position on canvas & sprite name
       mainEnemy.anchor.setTo(0.5,0.5);
-      mainEnemy.scale.setTo(0.90, 0.90);
+      
 
   		//Setting player & enemy physics
   		game.physics.arcade.enable(mainChar);
@@ -127,6 +125,9 @@ var PlayState = {
       //Set up EasyStar
       EasyStar.setGrid(level);
       EasyStar.setAcceptableTiles([0]);
+    //  EasyStar.disableCornerCutting();
+      EasyStar.setIterationsPerCalculation(300);
+
       setInterval(function(){
         EasyStar.findPath(currentEnemyTileX, currentEnemyTileY, currentPlayerTileX, currentPlayerTileY , function( path ) {
         if (path === null) {
@@ -141,7 +142,7 @@ var PlayState = {
                 console.log("GO LEFT UP"); 
                  enemyDirection = "NW";
               }
-        else if (currentNextPointX == currentEnemyTileX && currentNextPointY < currentEnemyTileX) {
+        else if (currentNextPointX == currentEnemyTileX && currentNextPointY < currentEnemyTileY) {
                 // up
                 console.log("GO UP");
                 enemyDirection = "N";
@@ -182,9 +183,8 @@ var PlayState = {
                 }
                 
       });
-      EasyStar.setIterationsPerCalculation(400);
-      EasyStar.calculate();
-    });
+     EasyStar.calculate();
+    }, 300);
      
   	},
 
@@ -219,8 +219,8 @@ var PlayState = {
   			mainChar.body.velocity.y = 150;
   		}
 
-      // Move the ENEMY
-          var enemySpeed = 90;
+      // Move the enemy
+          var enemySpeed = 60;
          
           if (enemyDirection == "N") {
             mainEnemy.body.velocity.x = -enemySpeed;
@@ -274,8 +274,8 @@ var PlayState = {
       //Update Path Position
       currentEnemyTileX = Math.floor(mainEnemy.body.x / map.tileWidth);
       currentEnemyTileY = Math.floor(mainEnemy.body.y / map.tileHeight);
-      currentPlayerTileX = Math.floor(mainChar.body.x /map.tileWidth);
-      currentPlayerTileY = Math.floor(mainChar.body.y / map.tileHeight);
+      currentPlayerTileX = Math.ceil(mainChar.body.x /map.tileWidth);
+      currentPlayerTileY = Math.ceil(mainChar.body.y / map.tileHeight);
   	}
       
  };

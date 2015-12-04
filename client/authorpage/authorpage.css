@@ -1,5 +1,8 @@
 .content-information {
-  text-align: center;
+  text-align: justify;
+}
+p.content-information {
+  width:50%;
 }
 .authorpage-main {
   text-align: left;

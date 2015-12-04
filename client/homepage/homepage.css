@@ -60,7 +60,17 @@ div.homepage-footer {
 	width:100%;
 	background-color: rgba(51,51,51, 1);
 	color:white;
-	min-height: 5vh;
-	max-height: 5vh;
+	max-height: 50px;
 	padding: 10px;
+}
+div.homepage-footer > address {
+  max-height: 30px;
+  display: inline;
+}
+span.homepage-left {
+  float:left;
+}
+
+span.homepage-right {
+  float:right;
 }
