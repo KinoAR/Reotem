@@ -1,4 +1,4 @@
-//Set up configuration for google
+//Set up configuration for google login
 ServiceConfiguration.configurations.upsert(
   { service: "google" },
   {

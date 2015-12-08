@@ -1,9 +1,15 @@
 <template name="gamepage">
   <div class="content-information gamepage-main container">
+  {{#if currentUser}}
     <p class="text-center">
     <h2> Reotem </h2>
+    <h3> Instructions </h3>
+    Arrow Keys to move.
     </p>
     <div id="game-area" class=" col-xs-12">
     </div>
+    {{else}}
+    <p>Please login to play the game </p>
+    {{/if}}
   </div>
 </template>

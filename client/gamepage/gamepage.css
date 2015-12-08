@@ -2,10 +2,6 @@ div.gamepage-main {
 	padding-bottom: 20px;
 }
 
-#game-area {
-	
-}
-
 #game-area > canvas {
 	margin: 20px auto;
 	width:50%;
